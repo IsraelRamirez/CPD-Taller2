@@ -15,11 +15,13 @@ void participante();
 
 int main(int argc, char** argv){
 
-    connect db ;
+    connect db;
     db.dbconnect((char *) ipserver, port, (char *) dbname, (char *) user, (char *) password);
     db.dbclose();
 
     participante();
+
+    return 0;
 }
 
 void participante(){
