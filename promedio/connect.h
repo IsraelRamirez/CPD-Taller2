@@ -31,7 +31,6 @@ public:
      * @param dbname Nombre de la base de datos
      * @param user Usuario para conectar a la base de datos
      * @param password Contraseña del usuario
-     * @return Devuelve la conexión a la base de datos
     */
     void dbconnect(char* ipserver, int port, char* dbname, char* user, char* password);
 
@@ -42,15 +41,12 @@ public:
 
     /** 
      * Funcion para consultar a la base de datos
-     * @param connection Es la conexión a la base de datos
      * @param query es la consulta en SQL para la base de datos
-     * @return Devuelve el resultado a la consulta de la base de datos
     */
     void dbquery(char* query);
 
     /** 
      * Entrega el número de filas afectadas por una consulta a la base de datos
-     * @param outCome Es el resultado de una consulta
      * @return Entrega la cantidad de filas afectadas por el resultado outCome
     */
     long dbnumrows();
@@ -65,7 +61,6 @@ public:
 
     /**
      * Funcion para liberar la memoria de un resultado
-     * @param outCome Es el resultado de una consulta
     */
     void dbfree();
 
