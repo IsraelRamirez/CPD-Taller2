@@ -1,0 +1,8 @@
+rm -fr *.o a.out core programa dist build
+mkdir -p build dist
+g++ -g3 -Wall -lm -c main.cpp -o build/main.o
+main.cpp:4:10: fatal error: Circunferencia.h: No existe el archivo o el directorio
+    4 | #include "Circunferencia.h"
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:11: main.o] Error 1
