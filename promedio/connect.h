@@ -33,7 +33,7 @@ public:
      * @param user Usuario para conectar a la base de datos
      * @param password Contraseña del usuario
     */
-    void dbconnect(char* ipserver, int port, char* dbname, char* user, char* password);
+    void dbconnect(char* ipserver, char* port, char* dbname, char* user, char* password);
 
     /**
      * Función para desconectar la base de datos
