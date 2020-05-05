@@ -8,12 +8,6 @@
 #include "connect.cpp"
 using namespace std;
 
-#define ipserver "192.168.0.16"
-#define port 5432
-#define dbname "psudb"
-#define user "psu"
-#define password "psu"
-
 void participante();
 /**
  * Funcion que lee una cierta linea de datos agrupados y separados por ";" y devuelve el promedio de puntajes
@@ -29,33 +23,48 @@ string PromedioAlumno(string linea);
  */
 int main(int argc, char** argv){
 
-    // crea el archivo promedios.csv
-    ofstream archivoSalida("promedio.csv");
-
-    connect db;
-    db.dbconnect((char *) "192.168.0.16", 5432, (char *) "psudb", (char *) "psu", (char *) "psu");
-    db.dbquery((char * ) "select * from puntajes;");
-    
-    cout<< endl << "filas afectadas:" <<db.dbnumrows() <<endl;
-    for(int i=0;i<db.dbnumrows();i++){
-        string linea = "";
-        for(int j=1; j<8; j++){
-            linea += db.dbOutCome(i,j);
-            if(j==7){
-                linea+='\0';
+    //Es necesario ingresar los argumentos <ipServer> <Puerto> <dbName> <dbUser> <dbPassword>
+    if(argc>5){
+        // crea el archivo promedios.csv
+        ofstream archivoSalida("promedio.csv");
+        //Crea la conexión base a la base de datos
+        connect db;
+        //Se conecta a la base de datos (ipserver, port, dbname, dbuser, dbpassword)
+        db.dbconnect(argv[1], argv[2], argv[3], argv[4], argv[5]);
+        //Recupera la información de la base de datos
+        db.dbquery((char * ) "select * from puntajes;");
+        //Recorre todo el resultado de la consulta
+        for(int i=0;i<db.dbnumrows();i++){
+            string linea = "";
+            for(int j=1; j<8; j++){
+                //Recorre el resultado de la consulta y normaliza en formato de rut;nem;ranking;matematica;lenguaje;ciencias;historia\0
+                linea += db.dbOutCome(i,j);
+                if(j==7){
+                    linea+='\0';
+                }
+                else{
+                    linea+=";";
+                }
             }
-            else{
-                linea+=";";
-            }
+            //Ingresa los promedios al arrchivo
+            archivoSalida << PromedioAlumno(linea)<<endl;
         }
-        archivoSalida << PromedioAlumno(linea)<<endl;
-    }
-    
-    db.dbfree();
-    db.dbclose();
-    participante();
+        // Libre la memoria
+        db.dbfree();
+        db.dbclose();
+        // Cierra el archivo de salida
+        archivoSalida.close();
 
-    return 0;
+        participante();
+
+        return 0;
+    }
+    //Error debido a la falta de argumentos
+    else{
+        cout<< "Error: Se debe ingresar los argumentos para ingresar a la base de datos..."<<endl;
+        cout<< "Debe ingresar como argumentos <ipServer> <Puerto> <dbName> <dbUser> <dbPassword>."<<endl;
+        return 1;
+    }
 }
 
 void participante(){

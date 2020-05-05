@@ -21,10 +21,10 @@ connect::connect() {
 connect::~connect() {
 }
 
-void connect::dbconnect(char* ipserver, int port, char* dbname, char* user, char* password){
+void connect::dbconnect(char* ipserver, char* port, char* dbname, char* user, char* password){
     _connection = NULL;
     char* uri = new char(sizeof(char));
-    snprintf(uri, 250, "host='%s' port='%d' dbname='%s' user='%s' password='%s'",ipserver,port,dbname,user,password);
+    snprintf(uri, 250, "host='%s' port='%s' dbname='%s' user='%s' password='%s'",ipserver,port,dbname,user,password);
     
     _connection = PQconnectdb(uri);
 
