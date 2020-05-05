@@ -1,0 +1,11 @@
+called: g++
+	/home/seba/workspace/plantilla
+	g++
+	-g3
+	-Wall
+	-lm
+	-c
+	main.cpp
+	-o
+	build/main.o
+
