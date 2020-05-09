@@ -5,7 +5,7 @@
 #include <string>
 #include <iomanip>
 #include <math.h>
-#include "connect.cpp"
+#include "connect.h"
 using namespace std;
 
 void participante();

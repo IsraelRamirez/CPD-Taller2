@@ -23,7 +23,7 @@ connect::~connect() {
 
 void connect::dbconnect(char* ipserver, char* port, char* dbname, char* user, char* password){
     _connection = NULL;
-    char* uri = new char(sizeof(char));
+    char* uri = new char[250];
     snprintf(uri, 250, "host='%s' port='%s' dbname='%s' user='%s' password='%s'",ipserver,port,dbname,user,password);
     
     _connection = PQconnectdb(uri);
